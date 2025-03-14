@@ -1,15 +1,17 @@
-import TaskCard from './TaskCard';
-import UserProfileCard from './ProfileCard';
+'use client'
+
+import TaskCard from '@/components/TaskCard';
+import ProfileCard from '@/components/ProfileCard'
 
 export default function Dashboard() {
     return (
         <div className='min-h-screen bg-pink-100 p-4 sm:p-6'>
-            <UserProfileCard
+            <ProfileCard
                 username='Kevin Lim'
             />
             <div className='flex justify-between items-center mb-4'>
                 <h3 className='text-black text-xl font-bold'> Daily Tasks</h3>
-                <button className='bg-pink-600 text-white px-4 py-2 rounded-lg'>Reroll</button>
+                <button className='bg-[#F50B57] text-white px-4 py-2 rounded-lg'>Reroll</button>
             </div>
             <TaskCard 
                 title="Visit Flinders St Station" 

@@ -17,16 +17,18 @@ export default function TouchGrass() {
       />
 
       {/* Google Button */}
-      <button className="flex items-center bg-yellow-200 px-6 py-3 rounded-xl shadow-md mt-4 hover:bg-yellow-300">
-        <span className="bg-white px-6 py-2 rounded-md font-medium text-gray-900 flex">
+
+      <div className="flex items-center bg-yellow-200 px-6 py-3 rounded-xl shadow-md mt-4 w-72 h-24">
+        <div className="bg-white px-6 py-2 rounded-md font-medium text-gray-900 flex
+          hover:scale-105 hover:shadow-xl transition-all cursor-pointer select-none">
           Continue with Google
           <img 
             src="/google.png" 
             alt="Google" 
             className="w-6 h-6 ml-2"
           />
-        </span>
-      </button>
+        </div>
+      </div>
     </div>
   );
 }
