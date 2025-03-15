@@ -7,7 +7,8 @@ export default function Dashboard() {
     return (
         <div className='min-h-screen bg-pink-100 p-4 sm:p-6'>
             <ProfileCard
-                username='Kevin Lim'
+                username='P.Diddy'
+                profileImage='/profile-picture.png'
             />
             <div className='flex justify-between items-center mb-4'>
                 <h3 className='text-black text-xl font-bold'> Daily Tasks</h3>
