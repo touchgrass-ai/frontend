@@ -14,7 +14,7 @@ export default function TouchGrass() {
 
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-pink-100 p-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#FAE0E7] p-6">
       {/* Text Section */}
       <h1 className="text-black text-2xl sm:text-3xl font-bold text-center">
         Not sure what to do? <br />
