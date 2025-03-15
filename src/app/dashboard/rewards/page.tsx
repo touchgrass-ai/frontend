@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CustomButton from "@/components/CustomButton";
 import NavBar from "@/components/NavBar";
+import { motion, view } from 'framer-motion';
+import NavBar from "@/components/NavBar";
 
 export default function Rewards() {
   const router = useRouter();
@@ -15,6 +17,8 @@ export default function Rewards() {
   const handleNextClick = () => {
     router.push("/dashboard/rewards/myrewards");
 }
+    router.push("/dashboard");
+  }
 
   const [points, setPoints] = useState(9999);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -31,6 +35,7 @@ export default function Rewards() {
   const categories = [
     { name: 'Rebates', icon: '/cashback.png' },
     { name: 'Vouchers', icon: '/voucher.png' },
+    { name: 'View All', icon: '/view-all.png' },
   ];
 
   const handleClaim = (id: number, pointsToDeduct: number) => {
@@ -52,7 +57,6 @@ export default function Rewards() {
       // Save to localStorage
       localStorage.setItem('claimedRewards', JSON.stringify([...claimedRewards, claimedRewardWithExpiry]));
     }
-
   };
 
   const handleSelectCategory = (category: string | null) => {
@@ -64,7 +68,7 @@ export default function Rewards() {
     : rewards;
 
   return (
-    <>
+    <div>
       {/* Reward Button */}
       <div className="min-h-screen bg-[#FEF0F4] p-4 sm:p-6">
         <div className="relative top-10 left-1 z-50">
@@ -96,6 +100,5 @@ export default function Rewards() {
       </div>
       <NavBar />
     </div>
-    </>
   );
 }
