@@ -1,7 +1,12 @@
+interface ProfileCardProps{
+  username:  string;
+  profileImage: string;
+  preferences_arr: string[];
+}
+
 
 
 function Level({}) {
-
 
   const level = 12
   const percentToNextLevel = 25
