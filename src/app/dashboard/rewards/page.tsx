@@ -44,7 +44,7 @@ export default function Rewards() {
   return (
     <>
       {/* Reward Button */}
-      <div className="fixed top-8 left-12">
+      <div className="fixed top-8 left-6">
         <motion.button
             className="bg-[#F50B57] text-white px-4 py-2 rounded-lg"
             whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
