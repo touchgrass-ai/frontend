@@ -22,10 +22,12 @@ export default function TouchGrass() {
         <div className="bg-white px-6 py-2 rounded-md font-medium text-gray-900 flex
           hover:scale-105 hover:shadow-xl transition-all cursor-pointer select-none">
           Continue with Google
-          <img 
+          <Image 
             src="/google.png" 
             alt="Google" 
             className="w-6 h-6 ml-2"
+            width={25}
+            height={25}
           />
         </div>
       </div>

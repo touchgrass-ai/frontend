@@ -1,3 +1,6 @@
+
+import { motion } from "motion/react"
+
 interface TaskCardProps {
   title: string;
   type: string;
@@ -7,7 +10,14 @@ interface TaskCardProps {
 
 export default function TaskCard({ title, type, criteria, exp }: TaskCardProps) {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-4 flex justify-between items-center">
+    <motion.div
+      className="bg-white p-4 rounded-lg shadow-md mb-4 flex justify-between items-center"
+      whileHover={{
+        scale: 1.1,
+        transition: { duration: 0.2 },
+      }}
+      whileTap={{ scale: 0.9 }}
+    >
       <div>
         <h4 className="text-black text-lg font-bold">{title}</h4>
         <p className="text-black text-sm">Task Type: {type}</p>
@@ -21,6 +31,6 @@ export default function TaskCard({ title, type, criteria, exp }: TaskCardProps) 
           {typeof exp === 'number' ? 'EXP' : ''}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
