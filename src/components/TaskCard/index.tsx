@@ -6,17 +6,19 @@ interface TaskCardProps {
   type: string;
   criteria: string;
   exp: number | string;
+  onClick: () => void
 }
 
-export default function TaskCard({ title, type, criteria, exp }: TaskCardProps) {
+export default function TaskCard({ title, type, criteria, exp, onClick }: TaskCardProps) {
   return (
     <motion.div
-      className="bg-white p-4 rounded-lg shadow-md mb-4 flex justify-between items-center"
+      className="bg-white p-4 rounded-lg shadow-md mb-4 flex justify-between items-center select-none"
       whileHover={{
-        scale: 1.1,
+        scale: 1.01,
         transition: { duration: 0.2 },
       }}
       whileTap={{ scale: 0.9 }}
+      onClick={onClick}
     >
       <div>
         <h4 className="text-black text-lg font-bold">{title}</h4>

@@ -1,6 +1,18 @@
+'use client'
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function TouchGrass() {
+
+  const router = useRouter()
+
+
+  const login = () => {
+    router.push('/dashboard')
+  }
+
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-pink-100 p-6">
       {/* Text Section */}
@@ -20,7 +32,9 @@ export default function TouchGrass() {
 
       <div className="flex items-center bg-yellow-200 px-6 py-3 rounded-xl shadow-md mt-4 w-72 h-24">
         <div className="bg-white px-6 py-2 rounded-md font-medium text-gray-900 flex
-          hover:scale-105 hover:shadow-xl transition-all cursor-pointer select-none">
+          hover:scale-105 hover:shadow-xl transition-all cursor-pointer select-none"
+          onClick={login}
+        >
           Continue with Google
           <Image 
             src="/google.png" 
