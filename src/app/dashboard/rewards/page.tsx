@@ -1,9 +1,12 @@
 "use client"
 
 import RewardsCard, { RewardsCardType } from "@/components/RewardCard";
+import { RewardsClaimedType } from "@/components/RewardsClaimedCard";
 import RewardCategoriesCard from "@/components/RewardCategories";
 import PointsDisplay from "@/components/PointsDisplay";
 import { useState } from 'react';
+
+
 
 export default function Rewards() {
   const [points, setPoints] = useState(9999);
@@ -15,7 +18,7 @@ export default function Rewards() {
     { id: 4, description: "10% Voucher for Uniqlo T-shirts", points: 90, icon: "/dollar.png", category: "Vouchers" }
   ]);
   // get rid of this once backend is up
-  const [claimedRewards, setClaimedRewards] = useState<RewardsCardType[]>([]);
+  const [claimedRewards, setClaimedRewards] = useState<RewardsClaimedType[]>([]);
 
   const categories = [
     { name: 'Rebates', icon: '/cashback.png' },
@@ -24,11 +27,23 @@ export default function Rewards() {
 
   const handleClaim = (id: number, pointsToDeduct: number) => {
     const claimedReward = rewards.find(reward => reward.id === id);
-    const updatedClaimedRewards = [...claimedRewards, claimedReward];
-    setPoints(points - pointsToDeduct);
-    setRewards(rewards.filter(reward => reward.id !== id));
-    setClaimedRewards(updatedClaimedRewards.filter((reward): reward is RewardsCardType => reward !== undefined));
-    localStorage.setItem('claimedRewards', JSON.stringify(updatedClaimedRewards));  
+    if (claimedReward) {
+      // Calculate expiry date (e.g., 30 days from now)
+      const expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 30); // Add 30 days
+      const expiryDateString = expiryDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+
+      // Add expiryDate to the claimed reward
+      const claimedRewardWithExpiry = { ...claimedReward, expiryDate: expiryDateString };
+
+      // Update state
+      setPoints(points - pointsToDeduct);
+      setRewards(rewards.filter(reward => reward.id !== id));
+      setClaimedRewards([...claimedRewards, claimedRewardWithExpiry]);
+
+      // Save to localStorage
+      localStorage.setItem('claimedRewards', JSON.stringify([...claimedRewards, claimedRewardWithExpiry]));
+    }
 
   };
 
@@ -56,7 +71,8 @@ export default function Rewards() {
       {/* Reward Items */}
       <div className="space-y-4">
         {filteredRewards.map(reward => (
-          <RewardsCard 
+          <RewardsCard
+            key={reward.id}
             rewards={reward}
             onClaim={() => handleClaim(reward.id, reward.points)}
           />
