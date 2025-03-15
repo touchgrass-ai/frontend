@@ -8,8 +8,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CustomButton from "@/components/CustomButton";
 import NavBar from "@/components/NavBar";
-import { motion, view } from 'framer-motion';
-import NavBar from "@/components/NavBar";
 
 export default function Rewards() {
   const router = useRouter();
@@ -17,8 +15,6 @@ export default function Rewards() {
   const handleNextClick = () => {
     router.push("/dashboard/rewards/myrewards");
 }
-    router.push("/dashboard");
-  }
 
   const [points, setPoints] = useState(9999);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -68,37 +64,38 @@ export default function Rewards() {
     : rewards;
 
   return (
-    <div>
-      {/* Reward Button */}
-      <div className="min-h-screen bg-[#FEF0F4] p-4 sm:p-6">
-        <div className="relative top-10 left-1 z-50">
-          <CustomButton
-            text="My Rewards"
-            onClick={handleNextClick} 
-          />
-        </div>
-        {/* Points Display */}
-        <div className="flex justify-end mb-6">
-          <PointsDisplay points={points} />
-        </div>
+      <div>
+        {/* Reward Button */}
+        <div className="min-h-screen bg-[#FEF0F4] p-4 sm:p-6">
+          <div className="relative top-10 left-1 z-50">
+            <CustomButton
+              text="My Rewards"
+              onClick={handleNextClick} 
+            />
+          </div>
+          {/* Points Display */}
+          <div className="flex justify-end mb-6">
+            <PointsDisplay points={points} />
+          </div>
 
-        {/* Reward Categories */}
-        <div className="mb-6">
-          <h3 className="text-black text-xl font-bold mb-2">Reward Categories</h3>
-          <RewardCategoriesCard categories={categories} onSelectCategory={handleSelectCategory} />
-        </div>
+          {/* Reward Categories */}
+          <div className="mb-6">
+            <h3 className="text-black text-xl font-bold mb-2">Reward Categories</h3>
+            <RewardCategoriesCard categories={categories} onSelectCategory={handleSelectCategory} />
+          </div>
 
-      {/* Reward Items */}
-      <div className="space-y-4">
-        {filteredRewards.map(reward => (
-          <RewardsCard
-            key={reward.id}
-            rewards={reward}
-            onClaim={() => handleClaim(reward.id, reward.points)}
-          />
-        ))}
+          {/* Reward Items */}
+          <div className="space-y-4">
+            {filteredRewards.map(reward => (
+              <RewardsCard
+                key={reward.id}
+                rewards={reward}
+                onClaim={() => handleClaim(reward.id, reward.points)}
+              />
+            ))}
+          </div>
+        </div>
+        <NavBar />
       </div>
-      <NavBar />
-    </div>
   );
 }
