@@ -34,7 +34,7 @@ export default function NavBar() {
             whileTap={{ scale: 0.9 }}
             onClick={() => handleNavigation('/dashboard/rewards')}
           >
-            <Image src='/gift.png' alt='rewards' width={20} height={20} className='w-6 h-6'/>
+            <Image src='/gift.png' alt='rewards' width={25} height={25} className='w-8 h-8'/>
             <div className='text-black text-xs'>Rewards</div>
           </motion.div>
           <motion.div
