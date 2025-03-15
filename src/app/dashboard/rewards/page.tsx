@@ -5,7 +5,7 @@ import RewardCategoriesCard from "@/components/RewardCategories";
 import PointsDisplay from "@/components/PointsDisplay";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, view } from 'framer-motion';
 
 export default function Rewards() {
   const router = useRouter();
@@ -26,6 +26,7 @@ export default function Rewards() {
   const categories = [
     { name: 'Rebates', icon: '/cashback.png' },
     { name: 'Vouchers', icon: '/voucher.png' },
+    { name: 'View All', icon: '/view-all.png' },
   ];
 
   const handleClaim = (id: number, pointsToDeduct: number) => {
@@ -43,7 +44,7 @@ export default function Rewards() {
 
   return (
     <>
-      {/* Reward Button */}
+      {/* Back Button */}
       <div className="fixed top-8 left-6">
         <motion.button
             className="bg-[#F50B57] text-white px-4 py-2 rounded-lg"

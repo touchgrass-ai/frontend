@@ -10,17 +10,12 @@ interface CategoriesCardProps {
           <button
             key={index}
             className="flex flex-col items-center bg-white p-2 rounded-lg shadow hover:bg-[#FFF482] active:bg-[#FFF482] focus:bg-[#FFF482] transition "
-            onClick={() => onSelectCategory(category.name)}
+            onClick={() => onSelectCategory(category.name === 'View All' ? null : category.name)}
           >
             <img src={category.icon} alt={category.name} className="w-12 h-12 mb-2" />
             <span className="text-black text-sm font-medium">{category.name}</span>
           </button>
         ))}
-        <button className="flex flex-col items-center"
-                onClick={() => onSelectCategory(null)}>
-          <img src="/view-all-icon.png" alt="View All" className="w-12 h-12 mb-2" />
-          <span className="text-black text-sm font-medium">View All</span>
-        </button>
       </div>
     );
   }
