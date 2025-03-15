@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ProfileCard from "@/components/ProfileCard";
+import NavBar from "@/components/NavBar";
 
 export default function Settings() {
   const [username, setUsername] = useState("P.Diddy");
@@ -57,23 +58,23 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 flex flex-col md:flex-row">
+    <div className="min-h-screen bg-[#FAE0E7] p-4 sm:p-6 flex flex-col md:flex-row">
       <div className="w-full md:w-1/4 bg-white p-4 rounded-lg shadow-md space-y-4 mb-4 md:mb-0">
-        <h1 className="text-2xl font-bold mb-4 text-black">Settings</h1>
+        <h1 className="text-4xl font-bold mb-4 text-black">Settings</h1>
         <button
           onClick={() => setSelectedSetting("profile")}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg shadow hover:bg-indigo-700 transition w-full"
+          className="bg-[#FF3F3F] mt-4 text-white px-4 py-2 rounded-lg shadow hover:bg-[#FF6262] transition w-full"
         >
           Edit Profile
         </button>
         <button
           onClick={() => setSelectedSetting("preferences")}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg shadow hover:bg-indigo-700 transition w-full"
+          className="bg-[#FF3F3F] mt-2 text-white px-4 py-2 rounded-lg shadow hover:bg-[#FF6262] transition w-full"
         >
           Edit Preferences
         </button>
       </div>
-      <div className="w-full md:w-3/4 bg-white p-4 rounded-lg shadow-md ml-0 md:ml-4">
+      <div className="w-full md:w-3/4 bg-white p-4 rounded-lg shadow-md ml-0 md:ml-4 flex flex-col">
         {selectedSetting === "profile" && (
           <>
             <ProfileCard username={username} profileImage={profilePic} />
@@ -121,9 +122,9 @@ export default function Settings() {
           </>
         )}
         {selectedSetting === "preferences" && (
-          <div>
-            <h2 className="text-xl font-bold mb-4 text-black">Edit Preferences</h2>
-            <p className="text-md font-semi-bold mb-4 text-black"> The following are the preferences that you have previously chosen.</p>
+          <div className="flex-grow">
+            <h2 className="text-2xl font-bold mb-4 text-black">Edit Preferences</h2>
+            <p className="text-lg font-semibold mb-4 text-black"> The following are the preferences that you have previously chosen.</p>
             <div className="flex flex-wrap gap-2">
               {preferences.map((preference, index) => (
                 <div key={index} className="bg-gray-200 text-black px-4 py-2 rounded-lg shadow">
@@ -131,15 +132,16 @@ export default function Settings() {
                 </div>
               ))}
             </div>
-            <button
-              onClick={handleNextClick}
-              className="mt-4 bg-[#FF3F3F] text-white px-4 py-2 rounded-lg shadow hover:bg-red-600 transition"
-            >
-              Edit Preferences
-            </button>
           </div>
         )}
+        <button
+          onClick={handleNextClick}
+          className="mt-4 bg-[#FF3F3F] text-white px-4 py-2 rounded-lg shadow hover:bg-red-600 transition self-end"
+        >
+          Edit Preferences
+        </button>
       </div>
+      <NavBar />
     </div>
   );
 }

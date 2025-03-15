@@ -2,8 +2,14 @@
 
 import { motion } from 'motion/react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export default function NavBar() {
+  const router = useRouter();
+
+  const handleNavigation = (path: string) => {
+    router.push(path);
+  };
 
   return (
     <nav className="fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 flex justify-around py-3">
@@ -13,7 +19,9 @@ export default function NavBar() {
           scale: 1.01,
           transition: { duration: 0.2 },
         }}
-        whileTap={{ scale: 0.9 }}>
+        whileTap={{ scale: 0.9 }}
+        onClick={()=>handleNavigation('/dashboard')}
+        >
         <Image src='/home.svg' alt='home' width={25} height={25} className='w-8 h-8'/>
         <div className='text-black text-xs'>Home</div>
       </motion.div>
@@ -22,7 +30,20 @@ export default function NavBar() {
           scale: 1.01,
           transition: { duration: 0.2 },
         }}
-        whileTap={{ scale: 0.9 }}>
+        whileTap={{ scale: 0.9 }}
+        onClick={()=>handleNavigation('/dashboard/rewards')}
+        >
+        <Image src='/gift.png' alt='rewards' width={20} height={20} className='w-8 h-8'/>
+        <div className='text-black text-xs'>Rewards</div>
+      </motion.div>
+      <motion.div className='flex flex-col items-center'
+        whileHover={{
+          scale: 1.01,
+          transition: { duration: 0.2 },
+        }}
+        whileTap={{ scale: 0.9 }}
+        onClick={()=>handleNavigation('/dashboard/settings')}
+        >
         <Image src='/settings.svg' alt='settings' width={25} height={25} className='w-8 h-8'/>
         <div className='text-black text-xs'>Settings</div>
       </motion.div>

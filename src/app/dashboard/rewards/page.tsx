@@ -6,6 +6,7 @@ import PointsDisplay from "@/components/PointsDisplay";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import NavBar from "@/components/NavBar";
 
 export default function Rewards() {
   const router = useRouter();
@@ -79,6 +80,7 @@ export default function Rewards() {
           ))}
         </div>
       </div>
+      <NavBar />
     </>
   );
 }
