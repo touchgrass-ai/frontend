@@ -20,7 +20,6 @@ export default function Dashboard() {
 
     }
 
-
     return (
       <div className='min-h-screen bg-pink-100 p-4 sm:p-6'>
         <ProfileCard
@@ -36,31 +35,31 @@ export default function Dashboard() {
             type="Attraction" 
             criteria="Take a photo" 
             exp={69} 
-            onClick={() => setIsTaskDetailOpen(true)}
+            onClick={onClickTaskCard(null)}
         />
         <TaskCard 
             title="Eat at Lune Croissanterie" 
             type="Breakfast" 
             criteria="Take a photo" 
             exp={420}
-            onClick={() => setIsTaskDetailOpen(true)}
+            onClick={onClickTaskCard(null)}
         />
         <TaskCard 
             title="Eat at Hakata Gensuke" 
             type="Lunch" 
             criteria="Take a photo" 
             exp={6969}
-            onClick={() => setIsTaskDetailOpen(true)}
+            onClick={onClickTaskCard(null)}
         />
         <TaskCard 
             title="Visit Monash University" 
             type="Attraction" 
             criteria="Take a photo" 
             exp="Bonus"
-            onClick={() => setIsTaskDetailOpen(true)}
+            onClick={onClickTaskCard(null)}
         />
-        <TaskDetailModal open={isTaskDetailOpen} onClose={() => setIsTaskDetailOpen(false)}/>
         <NavBar />
+        <TaskDetailModal open={isTaskDetailOpen} onClose={() => setIsTaskDetailOpen(false)}/>
       </div>
     )
 }

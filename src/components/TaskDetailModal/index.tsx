@@ -5,7 +5,7 @@ export default function TaskDetailModal({ open, onClose }: { open: boolean, onCl
 
   const ref = useRef<HTMLDivElement>(null)
 
-  const info = true
+  const info = false
 
   return (
     <Modal open={open}>
