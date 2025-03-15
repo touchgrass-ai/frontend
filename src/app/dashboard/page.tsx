@@ -16,7 +16,6 @@ export default function Dashboard() {
         router.push("/dashboard/rewards");
     }
 
-
     const [isTaskDetailOpen, setIsTaskDetailOpen] = useState(false)
     const [selectedTask, setSelectedTask] = useState(null)
 
@@ -31,11 +30,6 @@ export default function Dashboard() {
 
     return (
         <>
-            {/* Reward Button */}
-            <div className="fixed top-12 right-12">
-                <CustomButton text="View Rewards" onClick={handleNextClick} />
-            </div>
-                
             {/* Profile Card */}
           <div className='min-h-screen bg-pink-100 p-4 sm:p-6'>
             <ProfileCard
@@ -44,7 +38,14 @@ export default function Dashboard() {
         />
             <div className='flex justify-between items-center mb-4'>
                 <h3 className='text-black text-xl font-bold'> Daily Tasks</h3>
-                <button className='bg-[#F50B57] text-white px-4 py-2 rounded-lg'>Reroll</button>
+                <motion.button
+                  className='bg-[#F50B57] text-white px-4 py-2 rounded-lg'
+                  whileHover={{
+                    scale: 1.01,
+                    transition: { duration: 0.2 },
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                >Reroll</motion.button>
             </div>
 
                 {/* Task Cards */}
