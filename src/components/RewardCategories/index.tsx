@@ -1,6 +1,6 @@
 interface CategoriesCardProps {
     categories: { name: string; icon: string }[];
-    onSelectCategory: (category: string) => void;
+    onSelectCategory: (category: string | null) => void;
   }
   
   export default function RewardCategoriesCard({ categories, onSelectCategory }: CategoriesCardProps) {
@@ -16,6 +16,11 @@ interface CategoriesCardProps {
             <span className="text-black text-sm font-medium">{category.name}</span>
           </button>
         ))}
+        <button className="flex flex-col items-center"
+                onClick={() => onSelectCategory(null)}>
+          <img src="/view-all-icon.png" alt="View All" className="w-12 h-12 mb-2" />
+          <span className="text-black text-sm font-medium">View All</span>
+        </button>
       </div>
     );
   }
