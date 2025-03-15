@@ -1,6 +1,7 @@
 "use client"
 
-import RewardsCard from "@/components/RewardCard";
+import RewardsCard, { RewardsCardType } from "@/components/RewardCard";
+import { RewardsClaimedType } from "@/components/RewardsClaimedCard";
 import RewardCategoriesCard from "@/components/RewardCategories";
 import PointsDisplay from "@/components/PointsDisplay";
 import { useState } from 'react';
@@ -13,16 +14,18 @@ export default function Rewards() {
 
   const handleNextClick = () => {
     router.push("/dashboard");
-}
+  }
 
   const [points, setPoints] = useState(9999);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [rewards, setRewards] = useState([
+  const [rewards, setRewards] = useState<RewardsCardType[]>([
     { id: 1, description: "100$ Rebate Off Any Lenovo Purchase", points: 999, icon: "/dollar.png", category: "Rebates" },
     { id: 2, description: "10$ Rebate From Any Caring Pharmacy", points: 999, icon: "/dollar.png", category: "Rebates" },
     { id: 3, description: "100$ Off Bose Retailers", points: 999, icon: "/dollar.png", category: "Rebates" },
     { id: 4, description: "10% Voucher for Uniqlo T-shirts", points: 90, icon: "/dollar.png", category: "Vouchers" }
   ]);
+  // get rid of this once backend is up
+  const [claimedRewards, setClaimedRewards] = useState<RewardsClaimedType[]>([]);
 
   const categories = [
     { name: 'Rebates', icon: '/cashback.png' },
@@ -30,8 +33,24 @@ export default function Rewards() {
   ];
 
   const handleClaim = (id: number, pointsToDeduct: number) => {
-    setPoints(points - pointsToDeduct);
-    setRewards(rewards.filter(reward => reward.id !== id));
+    const claimedReward = rewards.find(reward => reward.id === id);
+    if (claimedReward) {
+      // Calculate expiry date (e.g., 30 days from now)
+      const expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 30); // Add 30 days
+      const expiryDateString = expiryDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+
+      // Add expiryDate to the claimed reward
+      const claimedRewardWithExpiry = { ...claimedReward, expiryDate: expiryDateString };
+
+      // Update state
+      setPoints(points - pointsToDeduct);
+      setRewards(rewards.filter(reward => reward.id !== id));
+      setClaimedRewards([...claimedRewards, claimedRewardWithExpiry]);
+
+      // Save to localStorage
+      localStorage.setItem('claimedRewards', JSON.stringify([...claimedRewards, claimedRewardWithExpiry]));
+    }
   };
 
   const handleSelectCategory = (category: string | null) => {
@@ -43,7 +62,7 @@ export default function Rewards() {
     : rewards;
 
   return (
-    <>
+    <div>
       {/* Reward Button */}
       <div className="fixed top-8 left-6">
         <motion.button
@@ -69,18 +88,15 @@ export default function Rewards() {
         {/* Reward Items */}
         <div className="space-y-4">
           {filteredRewards.map(reward => (
-            <RewardsCard 
+            <RewardsCard
               key={reward.id}
-              description={reward.description}
-              points={reward.points}
-              icon={reward.icon}
-              category={reward.category}
+              rewards={reward}
               onClaim={() => handleClaim(reward.id, reward.points)}
             />
           ))}
         </div>
+        <NavBar />
       </div>
-      <NavBar />
-    </>
+    </div>
   );
 }
