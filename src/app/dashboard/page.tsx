@@ -7,6 +7,7 @@ import ProfileCard from '@/components/ProfileCard'
 import NavBar from '@/components/NavBar';
 import TaskDetailModal from '@/components/TaskDetailModal';
 import { SetStateAction, useState } from 'react';
+import CustomButton from "@/components/CustomButton";
 
 export default function Dashboard() {
     const router = useRouter();
@@ -32,12 +33,7 @@ export default function Dashboard() {
         <>
             {/* Reward Button */}
             <div className="fixed top-12 right-12">
-                <motion.button className="bg-[#F50B57] text-white px-4 py-2 rounded-lg"
-                        whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={handleNextClick}>
-                    View Rewards
-                </motion.button>
+                <CustomButton text="View Rewards" onClick={handleNextClick} />
             </div>
                 
             {/* Profile Card */}

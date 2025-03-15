@@ -6,13 +6,14 @@ import RewardCategoriesCard from "@/components/RewardCategories";
 import PointsDisplay from "@/components/PointsDisplay";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import CustomButton from "@/components/CustomButton";
+import NavBar from "@/components/NavBar";
 
 export default function Rewards() {
   const router = useRouter();
 
   const handleNextClick = () => {
-    router.push("/dashboard");
+    router.push("/dashboard/rewards/myrewards");
 }
 
   const [points, setPoints] = useState(9999);
@@ -21,7 +22,8 @@ export default function Rewards() {
     { id: 1, description: "100$ Rebate Off Any Lenovo Purchase", points: 999, icon: "/dollar.png", category: "Rebates" },
     { id: 2, description: "10$ Rebate From Any Caring Pharmacy", points: 999, icon: "/dollar.png", category: "Rebates" },
     { id: 3, description: "100$ Off Bose Retailers", points: 999, icon: "/dollar.png", category: "Rebates" },
-    { id: 4, description: "10% Voucher for Uniqlo T-shirts", points: 90, icon: "/dollar.png", category: "Vouchers" }
+    { id: 4, description: "10% Voucher for Uniqlo T-shirts", points: 90, icon: "/dollar.png", category: "Vouchers" },
+    { id: 5, description: "10% Voucher for Happy Ending", points: 90, icon: "/dollar.png", category: "Vouchers" }
   ]);
   // get rid of this once backend is up
   const [claimedRewards, setClaimedRewards] = useState<RewardsClaimedType[]>([]);
@@ -64,16 +66,13 @@ export default function Rewards() {
   return (
     <>
       {/* Reward Button */}
-      <div className="fixed top-8 left-6">
-        <motion.button
-            className="bg-[#F50B57] text-white px-4 py-2 rounded-lg"
-            whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
-            whileTap={{ scale: 0.9 }}
-            onClick={handleNextClick}>
-            Back to Dashboard
-        </motion.button>
-      </div>
       <div className="min-h-screen bg-[#FEF0F4] p-4 sm:p-6">
+        <div className="relative top-10 left-1 z-50">
+          <CustomButton
+            text="My Rewards"
+            onClick={handleNextClick} 
+          />
+        </div>
         {/* Points Display */}
         <div className="flex justify-end mb-6">
           <PointsDisplay points={points} />
@@ -95,6 +94,7 @@ export default function Rewards() {
           />
         ))}
       </div>
+      <NavBar />
     </div>
     </>
   );
