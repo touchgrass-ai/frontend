@@ -25,6 +25,7 @@ export default function Dashboard() {
       <div className='min-h-screen bg-pink-100 p-4 sm:p-6'>
         <ProfileCard
             username='Kevin Lim'
+            profileImage='/profile-picture.png'
         />
         <div className='flex justify-between items-center mb-4'>
             <h3 className='text-black text-xl font-bold'> Daily Tasks</h3>

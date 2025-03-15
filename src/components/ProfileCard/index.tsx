@@ -21,12 +21,18 @@ function Level({}) {
 
 }
 
-export default function ProfileCard({username}: {username: string}){
+export default function ProfileCard({username, profileImage}: {username: string, profileImage:string}){
   
   return ( 
       <div className="flex flex-col justify-start items-start p-4 rounded-lg shadow-md mb-6 bg-[#FACA73]">
           <div className="flex flex-row items-center">
-            <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
+            <div className="w-16 h-16 bg-gray-300 rounded-full">
+              <img 
+                src = {profileImage}
+                alt = "Profile Image"
+                className="w-full h-full object object-cover"
+              />
+            </div>
             <div className="ml-4 text-black text-xl font-bold">{username}</div>
           </div>
           <Level />
