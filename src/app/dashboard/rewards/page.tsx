@@ -1,6 +1,6 @@
 "use client"
 
-import RewardsCard from "@/components/RewardCard";
+import RewardsCard, { RewardsCardType } from "@/components/RewardCard";
 import RewardCategoriesCard from "@/components/RewardCategories";
 import PointsDisplay from "@/components/PointsDisplay";
 import { useState } from 'react';
@@ -8,12 +8,14 @@ import { useState } from 'react';
 export default function Rewards() {
   const [points, setPoints] = useState(9999);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [rewards, setRewards] = useState([
+  const [rewards, setRewards] = useState<RewardsCardType[]>([
     { id: 1, description: "100$ Rebate Off Any Lenovo Purchase", points: 999, icon: "/dollar.png", category: "Rebates" },
     { id: 2, description: "10$ Rebate From Any Caring Pharmacy", points: 999, icon: "/dollar.png", category: "Rebates" },
     { id: 3, description: "100$ Off Bose Retailers", points: 999, icon: "/dollar.png", category: "Rebates" },
     { id: 4, description: "10% Voucher for Uniqlo T-shirts", points: 90, icon: "/dollar.png", category: "Vouchers" }
   ]);
+  // get rid of this once backend is up
+  const [claimedRewards, setClaimedRewards] = useState<RewardsCardType[]>([]);
 
   const categories = [
     { name: 'Rebates', icon: '/cashback.png' },
@@ -21,8 +23,13 @@ export default function Rewards() {
   ];
 
   const handleClaim = (id: number, pointsToDeduct: number) => {
+    const claimedReward = rewards.find(reward => reward.id === id);
+    const updatedClaimedRewards = [...claimedRewards, claimedReward];
     setPoints(points - pointsToDeduct);
     setRewards(rewards.filter(reward => reward.id !== id));
+    setClaimedRewards(updatedClaimedRewards.filter((reward): reward is RewardsCardType => reward !== undefined));
+    localStorage.setItem('claimedRewards', JSON.stringify(updatedClaimedRewards));  
+
   };
 
   const handleSelectCategory = (category: string) => {
@@ -50,11 +57,7 @@ export default function Rewards() {
       <div className="space-y-4">
         {filteredRewards.map(reward => (
           <RewardsCard 
-            key={reward.id}
-            description={reward.description}
-            points={reward.points}
-            icon={reward.icon}
-            category={reward.category}
+            rewards={reward}
             onClaim={() => handleClaim(reward.id, reward.points)}
           />
         ))}
