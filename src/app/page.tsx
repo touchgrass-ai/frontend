@@ -21,9 +21,9 @@ export default function TouchGrass() {
 
       {/* Grass Image */}
       <img 
-        src="/grass.png" 
+        src="/touchgrasslogo.png" 
         alt="Grass icon" 
-        className="w-16 h-16 my-4"
+        className="w-64 h-64 my-1"
       />
 
       {/* Google Button */}
