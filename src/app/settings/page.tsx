@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ProfileCard from "@/components/ProfileCard";
 import NavBar from "@/components/NavBar";
+import ToggleButton from "@/components/ToggleButton";
+import { motion } from "motion/react";
+
+const preferences = [
+  'food', 'sports', 'tech', 'movies', 'nature', 'intense', 'gambling', 'social', 'scenic'
+]
 
 export default function Settings() {
   const [username, setUsername] = useState("P.Diddy");
@@ -11,20 +17,35 @@ export default function Settings() {
   const [newUsername, setNewUsername] = useState("");
   const [newProfilePic, setNewProfilePic] = useState<File | null>(null);
   const [newProfilePicName, setNewProfilePicName] = useState("");
-  const [preferences, setPreferences] = useState<string[]>([]);
+
+  const [selectedPreferences, setSelectedPreferences] = useState<boolean[]>(new Array(preferences.length).fill(false))
+
+  const toggleSelected = (index: number) => {
+    setSelectedPreferences((prev) => {
+      const newSelectedPreferences = [...prev];
+      newSelectedPreferences[index] = !newSelectedPreferences[index]
+      return (newSelectedPreferences)
+    })
+  }
 
   const router = useRouter();
+
+  // useEffect(() => {
+  //   fetch('http://localhost:5000/auth/me', {
+  //     method: 'GET'
+  //   }).then((response) => {
+  //     if (response.ok) {
+  //       response.json().then((data) => {
+
+  //         if (data === null) router.push('/')
+  //       })
+  //     }
+  //   }).catch((e) => console.error(e))
+  // }, [])
 
   const handleNextClick = () => {
     router.push("/preferences");
   }
-
-  useEffect(() => {
-    const storedPreferences = localStorage.getItem("selectedPreferences");
-    if (storedPreferences) {
-      setPreferences(JSON.parse(storedPreferences));
-    }
-  }, []);
 
   const handleNewUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewUsername(e.target.value);
@@ -66,13 +87,7 @@ export default function Settings() {
             <label htmlFor="username" className="block text-sm font-medium text-black text-semi-bold">
               Change username by entering new username in field below.
             </label>
-            <input
-              type="text"
-              id="username"
-              value={newUsername}
-              onChange={handleNewUsernameChange}
-              className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-gray-200 sm:text-sm"
-            />
+            <motion.input className="h-12 bg-white rounded-lg p-2 text-black text-lg" placeholder={'Username'}/>
           </div>
           <div className="mb-4">
             <label htmlFor="profilePic" className="block text-sm font-medium text-black semi-bold mb-2">
@@ -104,13 +119,10 @@ export default function Settings() {
         </form>
         <div className="flex-grow mt-8">
           <h2 className="text-2xl font-bold mb-4 text-black">Edit Preferences</h2>
-          <p className="text-lg font-semibold mb-4 text-black"> The following are the preferences that you have previously chosen.</p>
-          <div className="flex flex-wrap gap-2">
-            {preferences.map((preference, index) => (
-              <div key={index} className="bg-gray-200 text-black px-4 py-2 rounded-lg shadow">
-                {preference}
-              </div>
-            ))}
+          <div className="flex flex-wrap space-x-3 space-y-3">
+            {
+              preferences.map((p, i) => <ToggleButton key={i} text={p} isSelected={selectedPreferences[i]} onToggle={() => toggleSelected(i)} />)
+            }
           </div>
         </div>
         <button

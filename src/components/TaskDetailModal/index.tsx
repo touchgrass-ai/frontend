@@ -30,7 +30,7 @@ export default function TaskDetailModal({ open, onClose }: { open: boolean, onCl
     
     let title = ""
     
-    if (taskType in ['breakfast', 'lunch', 'dinner'] ) {
+    if (['breakfast', 'lunch', 'dinner'].includes(taskType)) {
       title = "Eat at"
     } else if (taskType === 'attraction') {
       title = "Visit"

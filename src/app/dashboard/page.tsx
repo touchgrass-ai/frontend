@@ -10,15 +10,15 @@ import { SetStateAction, useEffect, useState } from 'react';
 
 
 type userData = {
-
+  id: number
 }
 
 const tasks = [
   {
-    title: "title",
+    title: "Lune Crossainterie",
     type: 'type',
-    criteria: 'criteria',
-    exp: 120
+    criteria: 'Take a photo',
+    exp: 20
   },
   {
     title: "title",
@@ -63,27 +63,40 @@ export default function Dashboard() {
     const router = useRouter();
     const [isTaskDetailOpen, setIsTaskDetailOpen] = useState(false)
     const [selectedTask, setSelectedTask] = useState(null)
-    const [userData, setUserData] = useState<userData>({})
+    const [userData, setUserData] = useState<userData | null>(null)
+    const [userTasks, setUserTasks] = useState()
 
     useEffect(() => {
-      fetch('http://localhost:5000/auth/me', {
-        method: 'GET'
-      }).then((response) => {
-        if (response.ok) {
-          response.json().then((data) => {
-            setUserData(data)
-          })
-        }
-      }).catch((e) => console.error(e))
+      // fetch('http://localhost:5000/auth/me', {
+      //   method: 'GET'
+      // }).then((response) => {
+      //   if (response.ok) {
+      //     response.json().then((data) => {
 
-      fetch('http://localhost:5000/')
-
+      //       if (data === null) router.push('/')
+      //       setUserData(data)
+      //     })
+      //   }
+      // }).catch((e) => console.error(e))
 
     }, [])
 
     useEffect(() => {
-      console.log(userData)
+
+      if (userData === null) return;
+
+      fetch(`http://localhost:5000/recommend/${userData.id}`, {
+        method: 'GET'
+      }).then((response) => {
+        if (response.ok) {
+          response.json().then((json) => setUserTasks(json))
+        }
+      }).catch((e) => console.error(e))
+
     }, [userData])
+
+
+
 
     const onClickTaskCard = (task: SetStateAction<null>) => {
 
@@ -97,7 +110,7 @@ export default function Dashboard() {
     return (
       <div className='min-h-screen bg-pink-100 p-4 sm:p-6'>
         <ProfileCard
-            username='Kevin Lim'
+            username='Kevin'
             profileImage='/profile-picture.png'
         />
         <div className='flex justify-between items-center mb-4'>

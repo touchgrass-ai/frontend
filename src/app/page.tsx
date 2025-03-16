@@ -41,7 +41,7 @@ export default function TouchGrass() {
         >
           Continue with Google
           <Image 
-            src="/google.png" 
+            src="/google.svg" 
             alt="Google" 
             className="w-6 h-6 ml-2"
             width={25}

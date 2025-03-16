@@ -1,8 +1,9 @@
 'use client'
 
+import ToggleButton from "@/components/ToggleButton";
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const enter = {
   opacity: 1,
@@ -16,22 +17,6 @@ const exit = {
   transition: {
     duration: 0.3
   },
-}
-
-function ToggleButton({ text, isSelected, onToggle }: {text: string, isSelected: boolean, onToggle: () => void}) {
-
-  return (
-    <motion.button className={`h-12 w-auto px-4 ${isSelected ? 'bg-[#F50B57] text-white' : 'bg-gray-300 text-black'} font-bold text-lg rounded-lg transition-colors`}
-    whileHover={{
-      scale: 1.01,
-      transition: { duration: 0.2 },
-    }}
-    whileTap={{ scale: 0.9 }}
-    onClick={onToggle}
-    >
-      {text}
-    </motion.button>
-  )
 }
 
 const preferences = [
@@ -67,6 +52,13 @@ export default function Register() {
 
     router.push('/dashboard')
   }
+
+  useEffect(() => {
+    // Ensure the input ref is set correctly on the client side
+    if (un_ref.current) {
+      un_ref.current.value = '';
+    }
+  }, []);
 
   return (
     <div className='flex min-h-screen bg-pink-100 p-4 sm:p-6'>

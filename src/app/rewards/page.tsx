@@ -20,6 +20,8 @@ const placeholders = [
 
 export default function Rewards() {
 
+  const router = useRouter();
+
   const [points, setPoints] = useState(0);
 
   // get rid of this once backend is up
@@ -32,6 +34,19 @@ export default function Rewards() {
     { name: 'Vouchers', icon: '/voucher.png' },
     { name: 'View All', icon: '/view-all.png' },
   ];
+
+  useEffect(() => {
+    fetch('http://localhost:5000/auth/me', {
+      method: 'GET'
+    }).then((response) => {
+      if (response.ok) {
+        response.json().then((data) => {
+
+          if (data === null) router.push('/')
+        })
+      }
+    }).catch((e) => console.error(e))
+  }, [])
 
   const handleClaim = (id: number, pointsToDeduct: number) => {
     const claimedReward = rewards.find(reward => reward.id === id);
