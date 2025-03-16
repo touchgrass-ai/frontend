@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
+import { motion } from 'motion/react';
 
 export default function TouchGrass() {
 
@@ -28,9 +29,14 @@ export default function TouchGrass() {
 
       {/* Google Button */}
 
-      <div className="flex items-center bg-yellow-200 px-6 py-3 rounded-xl shadow-md mt-4 w-72 h-24">
-        <div className="bg-white px-6 py-2 rounded-md font-medium text-gray-900 flex
+      <div className="flex items-center bg-[#FACA73] px-6 py-3 rounded-xl shadow-md mt-4 w-72 h-24">
+        <motion.div className="bg-white px-6 py-2 rounded-md font-medium text-gray-900 flex
           hover:scale-105 hover:shadow-xl transition-all cursor-pointer select-none"
+          whileHover={{
+            scale: 1.01,
+            transition: { duration: 0.2 },
+          }}
+          whileTap={{ scale: 0.9 }}
           onClick={login}
         >
           Continue with Google
@@ -41,7 +47,7 @@ export default function TouchGrass() {
             width={25}
             height={25}
           />
-        </div>
+        </motion.div>
       </div>
     </div>
   );

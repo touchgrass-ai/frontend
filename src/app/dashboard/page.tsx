@@ -13,6 +13,51 @@ type userData = {
 
 }
 
+const tasks = [
+  {
+    title: "title",
+    type: 'type',
+    criteria: 'criteria',
+    exp: 120
+  },
+  {
+    title: "title",
+    type: 'type',
+    criteria: 'criteria',
+    exp: 120
+  },
+  {
+    title: "title",
+    type: 'type',
+    criteria: 'criteria',
+    exp: 120
+  },
+  {
+    title: "title",
+    type: 'type',
+    criteria: 'criteria',
+    exp: 120
+  },
+  {
+    title: "title",
+    type: 'type',
+    criteria: 'criteria',
+    exp: 120
+  },
+  {
+    title: "title",
+    type: 'type',
+    criteria: 'criteria',
+    exp: 120
+  },
+  {
+    title: "title",
+    type: 'type',
+    criteria: 'criteria',
+    exp: 120
+  },
+]
+
 export default function Dashboard() {
 
     const router = useRouter();
@@ -27,7 +72,6 @@ export default function Dashboard() {
         if (response.ok) {
           response.json().then((data) => {
             setUserData(data)
-            console.log(data)
           })
         }
       }).catch((e) => console.error(e))
@@ -36,6 +80,10 @@ export default function Dashboard() {
 
 
     }, [])
+
+    useEffect(() => {
+      console.log(userData)
+    }, [userData])
 
     const onClickTaskCard = (task: SetStateAction<null>) => {
 
@@ -63,34 +111,11 @@ export default function Dashboard() {
               whileTap={{ scale: 0.9 }}
             >Reroll</motion.button>
         </div>
-        <TaskCard 
-            title="Visit Flinders St Station" 
-            type="Attraction" 
-            criteria="Take a photo" 
-            exp={69} 
-            onClick={onClickTaskCard(null)}
-        />
-        <TaskCard 
-            title="Eat at Lune Croissanterie" 
-            type="Breakfast" 
-            criteria="Take a photo" 
-            exp={420}
-            onClick={onClickTaskCard(null)}
-        />
-        <TaskCard 
-            title="Eat at Hakata Gensuke" 
-            type="Lunch" 
-            criteria="Take a photo" 
-            exp={6969}
-            onClick={onClickTaskCard(null)}
-        />
-        <TaskCard 
-            title="Visit Monash University" 
-            type="Attraction" 
-            criteria="Take a photo" 
-            exp="Bonus"
-            onClick={onClickTaskCard(null)}
-        />
+        <div>
+          {
+            tasks.map((t, i) => <TaskCard key={i} title={t.title} type={t.type} criteria={t.criteria} exp={t.exp} onClick={onClickTaskCard(null)}/>)
+          }
+        </div>
         <NavBar />
         <TaskDetailModal open={isTaskDetailOpen} onClose={() => setIsTaskDetailOpen(false)}/>
       </div>

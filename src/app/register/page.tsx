@@ -1,7 +1,7 @@
 'use client'
 
-import { motion, useScroll } from "motion/react";
-import { redirect, useRouter } from "next/navigation";
+import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 const enter = {
