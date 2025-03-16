@@ -1,11 +1,57 @@
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import Modal from "../Modal"
+import { motion } from "motion/react"
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
+// Call the element loader before the render call
+defineCustomElements(window);
 
 export default function TaskDetailModal({ open, onClose }: { open: boolean, onClose: () => void}) {
 
   const ref = useRef<HTMLDivElement>(null)
+  const imgRef = useRef<HTMLImageElement>(null)
+  const info = true
 
-  const info = false
+  const taskType = "breakfast" // attraction
+  const taskDetail = "Lune Crossainterie"
+  const rewardType = "exp" // or currency or bonus
+  const reward = 250
+  const completionCriteria = "photo"
+
+  const taskLocation = [] // lon, lat
+  const userLocation: unknown = []
+
+  const createTaskTitle = (taskType: string, taskDetail: string) => {
+    
+    let title = ""
+    
+    if (taskType in ['breakfast', 'lunch', 'dinner'] ) {
+      title = "Eat at"
+    } else if (taskType === 'attraction') {
+      title = "Visit"
+    }
+
+    return (title + " " + taskDetail)
+  }
+
+  const takePhoto = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      saveToGallery: false,
+      source: CameraSource.Camera,
+      resultType: CameraResultType.Uri
+    });
+  
+    if (imgRef.current && image.webPath) {
+      imgRef.current.src = image.webPath
+    }
+  };
+
+  const onSubmit = () => {
+
+  }
 
   return (
     <Modal open={open}>
@@ -13,30 +59,39 @@ export default function TaskDetailModal({ open, onClose }: { open: boolean, onCl
         className="flex w-screen h-full justify-center items-start"
         onClick={(e) => (!ref.current?.contains(e.target as Node)) ? onClose() : ''}
       >
-        {
-          info ?
-            <div className={`flex w-screen h-full justify-center items-start py-12 ${open ? 'overflow-auto' : 'overflow-hidden'}`}>
-              <div className="flex flex-col w-[85%] lg:w-1/2 h-auto py-8 bg-white rounded-lg " ref={ref}>
-                <div className="flex text-black justify-center items-center">
-                  Click outside to exit
-                </div>
-              </div>
-            </div> :
-
-            <div className={`flex w-screen h-full justify-center items-start py-12 ${open ? 'overflow-auto' : 'overflow-hidden'}`}>
-              <div className="flex flex-col w-[85%] lg:w-1/2 h-auto p-8 bg-white rounded-lg " ref={ref}>
-                
-              <div className="max-w-sm animate-pulse">
-                  <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-              </div>
-              </div>
+        <div className={`flex w-screen h-full justify-center items-start py-12 ${open ? 'overflow-auto' : 'overflow-hidden'}`}>
+          <div className="flex flex-col w-[85%] lg:w-1/2 h-auto bg-white rounded-lg p-5 text-black space-y-2" ref={ref}>
+            <div className="font-bold text-2xl">
+              {createTaskTitle(taskType, taskDetail)}
             </div>
-        }
+            <div className="text-lg">Task type: {taskType}</div>
+            <div className="text-lg">Completion criteria: {completionCriteria}</div>
+            <motion.div
+              className="flex justify-center items-center rounded-lg w-32 h-12 bg-[#F50B57] text-white my-2"
+              whileHover={{
+                scale: 1.01,
+                transition: { duration: 0.2 },
+              }}
+              whileTap={{ scale: 0.9 }}
+              onClick={takePhoto}
+            >
+              Take a photo
+            </motion.div>
+            <img ref={imgRef} className="flex justify-center items-center rounded-lg" />
+            <motion.button
+              disabled={true}
+              className="flex justify-center items-center rounded-lg w-32 h-12 bg-[#F50B57] text-white my-2"
+              whileHover={{
+                scale: 1.01,
+                transition: { duration: 0.2 },
+              }}
+              whileTap={{ scale: 0.9 }}
+              onClick={onSubmit}
+            >
+              Submit
+            </motion.button>
+          </div>
+        </div>
       </div>
     </Modal>
     )

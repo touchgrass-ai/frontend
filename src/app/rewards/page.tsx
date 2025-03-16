@@ -19,10 +19,8 @@ const placeholders = [
 ]
 
 export default function Rewards() {
-  const router = useRouter();
 
   const [points, setPoints] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   // get rid of this once backend is up
   const [claimedRewards, setClaimedRewards] = useState<RewardsClaimedType[]>([]);
@@ -77,7 +75,7 @@ export default function Rewards() {
         </div>
         <div className="space-y-4">
           {
-            isMyRewards ? rewards.map((reward: RewardsCardType) => (<RewardsCard key={reward.id} rewards={reward} onClaim={() => handleClaim(reward.id, reward.points)}/>)) : 
+            !isMyRewards ? rewards.map((reward: RewardsCardType) => (<RewardsCard key={reward.id} rewards={reward} onClaim={() => handleClaim(reward.id, reward.points)}/>)) : 
             claimedRewards.map((reward, index) => (<RewardsClaimedCard key={index} reward={reward} />))
           }
         </div>

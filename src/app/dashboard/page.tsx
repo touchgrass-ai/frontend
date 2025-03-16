@@ -6,18 +6,36 @@ import TaskCard from '@/components/TaskCard';
 import ProfileCard from '@/components/ProfileCard'
 import NavBar from '@/components/NavBar';
 import TaskDetailModal from '@/components/TaskDetailModal';
-import { SetStateAction, useState } from 'react';
-import CustomButton from "@/components/CustomButton";
+import { SetStateAction, useEffect, useState } from 'react';
+
+
+type userData = {
+
+}
 
 export default function Dashboard() {
+
     const router = useRouter();
-
-    const handleNextClick = () => {
-        router.push("/dashboard/rewards");
-    }
-
     const [isTaskDetailOpen, setIsTaskDetailOpen] = useState(false)
     const [selectedTask, setSelectedTask] = useState(null)
+    const [userData, setUserData] = useState<userData>({})
+
+    useEffect(() => {
+      fetch('http://localhost:5000/auth/me', {
+        method: 'GET'
+      }).then((response) => {
+        if (response.ok) {
+          response.json().then((data) => {
+            setUserData(data)
+            console.log(data)
+          })
+        }
+      }).catch((e) => console.error(e))
+
+      fetch('http://localhost:5000/')
+
+
+    }, [])
 
     const onClickTaskCard = (task: SetStateAction<null>) => {
 

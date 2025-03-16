@@ -15,9 +15,7 @@ export interface RewardsCardType {
 
 export default function RewardsCard({rewards, onClaim }: RewardsCardProps) {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-lg flex items-center mb-4"
-    
-    >
+    <div className="bg-white p-4 rounded-lg shadow-lg flex items-center mb-4">
       <img src={rewards.icon} alt="Reward Icon" className="w-12 h-12 mr-4" />
       <div>
         <h4 className="text-black text-lg font-bold">{rewards.description}</h4>

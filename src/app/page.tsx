@@ -1,17 +1,15 @@
 'use client'
 
+import { useRouter } from 'next/navigation';
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export default function TouchGrass() {
 
-  const router = useRouter()
-
+  const router = useRouter();
 
   const login = () => {
-    router.push('/dashboard')
+    router.push('http://localhost:5000/auth/google');
   }
-
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#FAE0E7] p-6">
