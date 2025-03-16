@@ -4,9 +4,6 @@ import { motion } from "motion/react"
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
-// Call the element loader before the render call
-defineCustomElements(window);
-
 export default function TaskDetailModal({ open, onClose }: { open: boolean, onClose: () => void}) {
 
   const ref = useRef<HTMLDivElement>(null)
@@ -21,6 +18,13 @@ export default function TaskDetailModal({ open, onClose }: { open: boolean, onCl
 
   const taskLocation = [] // lon, lat
   const userLocation: unknown = []
+
+  useEffect(() => {
+    // Call the element loader only on the client side
+    if (typeof window !== 'undefined') {
+      defineCustomElements(window);
+    }
+  }, []);
 
   const createTaskTitle = (taskType: string, taskDetail: string) => {
     
